@@ -49,11 +49,9 @@ BEGIN:VEVENT
 UID:${prayerDate.getFullYear()}-${prayerDate.getMonth()+1}-${prayerDate.getDate()}-${prayer}@whitebat.islam
 SUMMARY:Athan for ${prayer} in ${calendarSettings.startMinutesBefore} Minutes
 DTSTAMP:${now.format("YYYYMMDDTHHmmss")}
-DTSTART:${momStart.format("YYYYMMDDTHHmmss")}
-DTEND:${momEnd.format("YYYYMMDDTHHmmss")}
-TZOFFSETFROM:${momStart.format("ZZ")}
-TZOFFSETTO:${momStart.format("ZZ")}
-TZNAME:${timeZone}
+DTSTART;TZID=${athanData.meta.timezone}:${momStart.format("YYYYMMDDTHHmmss")}
+DTEND;TZID=${athanData.meta.timezone}:${momEnd.format("YYYYMMDDTHHmmss")}
+X-WR-TIMEZONE:${athanData.meta.timezone}
 DESCRIPTION: Athan for ${prayer}\\n \
 Prayer Time : ${AthanDataItem.getSimpleTimeStr(athanData,prayer)}\\n \
 Hijri Date Arabic  : ${ltrMark}${rtlMark}${athanData.date.hijri.year} ${athanData.date.hijri.month.ar} ${athanData.date.hijri.day} ${athanData.date.hijri.weekday.ar}${ltrMark}\\n \
