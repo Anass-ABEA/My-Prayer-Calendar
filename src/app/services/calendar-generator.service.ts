@@ -34,14 +34,16 @@ PRODID:-//WhiteBatIslam//EN`;
         reminderStart.setMinutes(prayerDate.getMinutes() - calendarSettings.startMinutesBefore)
         const momStart = moment.tz(reminderStart, timeZone)
 
-        if(AthanDate.isFriday(athanData.date) && prayer === Prayers.DHUHR)
-          if(calendarSettings.prayersToSave.includes(Prayers.JUMUAA))
+        if(AthanDate.isFriday(athanData.date) && prayer === Prayers.DHUHR){
+          if(calendarSettings.prayersToSave.includes(Prayers.JUMUAA)){
             reminderEnd.setTime(reminderStart.getTime() + calendarSettings.jumuaaConfig.durationMinutes * 60000);
-          else
+            reminderStart.setTime(reminderStart.getTime() - calendarSettings.jumuaaConfig.beforeInMinutes * 60000);
+          }else{
             reminderEnd.setTime(reminderStart.getTime() + calendarSettings.durationMinutes * 60000); // if jumuaa isn't selected then set the normal duration
-        else
+          }
+        }else{
           reminderEnd.setTime(reminderStart.getTime() + calendarSettings.durationMinutes * 60000);
-
+        }
         const momEnd = moment.tz(reminderEnd, timeZone)
         if(Object.hasOwn(athanData.timings, prayer))
         icsContent += `

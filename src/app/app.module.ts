@@ -15,6 +15,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSelectModule} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
 import {ClipboardModule} from "@angular/cdk/clipboard";
 
@@ -37,6 +38,7 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
     MatToolbarModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatSelectModule,
     FormsModule,
     ClipboardModule
   ],

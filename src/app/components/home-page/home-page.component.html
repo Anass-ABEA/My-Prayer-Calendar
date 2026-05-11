@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container m-body-container mt-5">
   <h2 class="pure-u-1 text-center my-5">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h2>
   <h3 class="pure-u-1 text-center my-3">Calendar Generator for Prayers</h3>
   <p>
@@ -55,11 +55,25 @@
 
       </section>
 
-      <mat-form-field class="full-width" style="margin-top: 16px" *ngIf="isJumuaaSelected()">
-        <mat-label>Jumuaa Prayer Duration (Minutes)</mat-label>
-        <input min="1" max="3600"  [(ngModel)]="calendarSettings.jumuaaConfig.durationMinutes"  type="number" matInput placeholder="Jumu'ah Prayer Duration (Minutes)"
-               [value]="calendarSettings.jumuaaConfig.durationMinutes.toString()">
-      </mat-form-field>
+      <div class="full-width pure-g" style="margin-top: 16px" *ngIf="isJumuaaSelected()">
+
+        <div class="pure-u-1-2" style="padding: 5px; box-sizing: border-box;">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Jumuaa Prayer Duration (Minutes)</mat-label>
+            <input min="1" max="3600"  [(ngModel)]="calendarSettings.jumuaaConfig.durationMinutes"  type="number" matInput placeholder="Jumu'ah Prayer Duration (Minutes)"
+                  [value]="calendarSettings.jumuaaConfig.durationMinutes.toString()">
+            </mat-form-field>
+        </div>
+
+        <div class="pure-u-1-2" style="padding: 5px; box-sizing: border-box;">
+          <mat-form-field style="width: 100%;">
+            <mat-label>Minutes before Jumuaa Prayer (Minutes)</mat-label>
+            <input min="1" max="3600"  [(ngModel)]="calendarSettings.jumuaaConfig.beforeInMinutes"  type="number" matInput placeholder="Minutes before Jumu'ah Prayer (Minutes)"
+                  [value]="calendarSettings.jumuaaConfig.beforeInMinutes.toString()">
+            </mat-form-field>
+        </div>
+
+      </div>
     </div>
 
     <div class="pure-g">
@@ -75,9 +89,107 @@
       </div>
     </div>
 
+    <div class="pure-g" style="margin-top: 30px;">
+      <div class="pure-u-1 center-element text-center">
+        <button mat-stroked-button class="bg-secondary-color" (click)="toggleAdditionalDetails()">Additional Details</button>
+      </div>
+    </div>
 
-
+    <div *ngIf="showAdditionalDetails" style="margin-top: 20px; padding: 20px;">
+      <table class="pure-table " style="width: 100%;">
+        <tbody>
+          <tr>
+            <td style="width: 50%; padding: 10px;">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Calculation Method</mat-label>
+                <mat-select name="method" [(ngModel)]="calendarSettings.method">
+                  <mat-option value="##">Automatic</mat-option>
+                  <mat-option value="0">0 - Jafari / Shia Ithna-Ashari</mat-option>
+                  <mat-option value="1">1 - University of Islamic Sciences, Karachi</mat-option>
+                  <mat-option value="2">2 - Islamic Society of North America</mat-option>
+                  <mat-option value="3">3 - Muslim World League</mat-option>
+                  <mat-option value="4">4 - Umm Al-Qura University, Makkah</mat-option>
+                  <mat-option value="5">5 - Egyptian General Authority of Survey</mat-option>
+                  <mat-option value="7">7 - Institute of Geophysics, University of Tehran</mat-option>
+                  <mat-option value="8">8 - Gulf Region</mat-option>
+                  <mat-option value="9">9 - Kuwait</mat-option>
+                  <mat-option value="10">10 - Qatar</mat-option>
+                  <mat-option value="11">11 - Majlis Ugama Islam Singapura, Singapore</mat-option>
+                  <mat-option value="12">12 - Union Organization islamic de France</mat-option>
+                  <mat-option value="13">13 - Diyanet İşleri Başkanlığı, Turkey</mat-option>
+                  <mat-option value="14">14 - Spiritual Administration of Muslims of Russia</mat-option>
+                  <mat-option value="15">15 - Moonsighting Committee Worldwide (also requires shafaq parameter)</mat-option>
+                  <mat-option value="16">16 - Dubai (experimental)</mat-option>
+                  <mat-option value="17">17 - Jabatan Kemajuan Islam Malaysia (JAKIM)</mat-option>
+                  <mat-option value="18">18 - Tunisia</mat-option>
+                  <mat-option value="19">19 - Algeria</mat-option>
+                  <mat-option value="20">20 - KEMENAG - Kementerian Agama Republik Indonesia</mat-option>
+                  <mat-option value="21">21 - Morocco</mat-option>
+                  <mat-option value="22">22 - Comunidade Islamica de Lisboa</mat-option>
+                  <mat-option value="23">23 - Ministry of Awqaf, Islamic Affairs and Holy Places, Jordan</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td style="width: 50%; padding: 10px;">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Shafaq</mat-label>
+                <mat-select name="shafaq" [(ngModel)]="calendarSettings.shafaq">
+                  <mat-option value="general">general</mat-option>
+                  <mat-option value="ahmer">ahmer</mat-option>
+                  <mat-option value="abyad">abyad</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 50%; padding: 10px;">
+              <mat-form-field style="width: 100%;">
+                <mat-label>School</mat-label>
+                <mat-select name="school" [(ngModel)]="calendarSettings.school">
+                  <mat-option value="0">0 - Shafi</mat-option>
+                  <mat-option value="1">1 - Hanafi</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td style="width: 50%; padding: 10px;">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Midnight Mode</mat-label>
+                <mat-select name="midnightMode" [(ngModel)]="calendarSettings.midnightMode">
+                  <mat-option value="0">0 - Standard (Mid Sunset to Sunrise)</mat-option>
+                  <mat-option value="1">1 - Jafari (Mid Sunset to Fajr)</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 50%; padding: 10px;">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Latitude Adjustment Method</mat-label>
+                <mat-select name="latitudeAdjustmentMethod" [(ngModel)]="calendarSettings.latitudeAdjustmentMethod">
+                  <mat-option value="1">1 - Middle of the Night</mat-option>
+                  <mat-option value="2">2 - One Seventh</mat-option>
+                  <mat-option value="3">3 - Angle Based</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td style="width: 50%; padding: 10px;">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Calendar Method</mat-label>
+                <mat-select name="calendarMethod" [(ngModel)]="calendarSettings.calendarMethod">
+                  <mat-option value="HJCoSA">HJCoSA - High Judicial Council of Saudi Arabia</mat-option>
+                  <mat-option value="UAQ">UAQ - Umm al-Qura</mat-option>
+                  <mat-option value="DIYANET">DIYANET - Diyanet İşleri Başkanlığı</mat-option>
+                  <mat-option value="MATHEMATICAL">MATHEMATICAL</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
   </div>
+
+
 
 </div>

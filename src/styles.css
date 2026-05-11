@@ -9,6 +9,28 @@
   margin: 10px;
 }
 
+body {
+    background-image: url(assets/images/bg_mosque.jpeg);
+    background-size: 100vw 100vh; 
+    background-position: bottom right; 
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    min-height: 100vh;
+}
+
+.m-body-container{
+  background-color: rgba(235, 196, 112, 0.9);
+  margin-top:20px!important;
+  padding: 20px!important;
+  border-radius: 20px;
+}
+
+.bg-secondary-color{
+  border-color: #495057!important;  /* Darker gray for better visibility */
+  color: #495057!important;
+  margin: 10px;
+}
+
 .text-center{
   text-align: center;
 }

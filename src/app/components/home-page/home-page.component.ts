@@ -43,7 +43,7 @@ export class HomePageComponent implements OnInit{
   calendarSettings : CalendarSettings = new CalendarSettings()
   bsInlineValue = new Date();
   address = "Paris, France";
-
+  showAdditionalDetails: boolean = false;
 
   generatedIcsText = "";
   initialDateValue = `${StringHelper.numberFormatter((new Date()).getMonth() + 1, 2)}/${(new Date()).getFullYear()}`
@@ -90,7 +90,19 @@ export class HomePageComponent implements OnInit{
 
   generateIcsFile() {
     this.generatedIcsText = "";
-    this.athanApiService.loadAthanData(this.calendarSettings.year, this.calendarSettings.month, {address: this.address})
+    const extras = {
+      address : this.address,
+      method : this.calendarSettings.method,
+      shafaq : this.calendarSettings.shafaq,
+      school : this.calendarSettings.school,
+      midnightMode : this.calendarSettings.midnightMode,
+      latitudeAdjustmentMethod : this.calendarSettings.latitudeAdjustmentMethod,
+      calendarMethod : this.calendarSettings.calendarMethod
+    }
+    if(extras.method === "##") {
+      extras.method = "";
+    }
+    this.athanApiService.loadAthanData(this.calendarSettings.year, this.calendarSettings.month, extras)
       .subscribe(result => {
         this.loadedAthanData = <Array<AthanDataItem>>result.data;
         this.generatedIcsText = this.calendarService.generateICS(this.loadedAthanData, this.calendarSettings);
@@ -116,5 +128,9 @@ export class HomePageComponent implements OnInit{
 
   now() {
     return new Date();
+  }
+
+  toggleAdditionalDetails() {
+    this.showAdditionalDetails = !this.showAdditionalDetails;
   }
 }

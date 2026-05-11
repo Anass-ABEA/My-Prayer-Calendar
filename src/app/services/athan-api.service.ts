@@ -15,6 +15,8 @@ export class AthanApiService {
     let athanApiUrl = environment.athanApi + `${yearNum}/${monthNum}`
     let isFirstParam = true;
     for (const key of Object.keys(extras)) {
+      if(extras[key] === "")
+        continue;
       athanApiUrl+=`${isFirstParam?'?':'&'}${key}=${extras[key]}`
       isFirstParam = false;
     }
